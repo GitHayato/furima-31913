@@ -1,24 +1,60 @@
-# README
+## usersテーブル  
+| Column          | Type   | Options     |
+| --------------- | ------ | ----------- |
+| nickname        | string | null: false |
+| email           | string | null: false |
+| password        | string | null: false |
+| first_name      | string | null: false |
+| last_name       | string | null: false |
+| first_name_kana | string | null: false |
+| last_name_kana  | string | null: false |
+| birthday        | text   | null: false |
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Association
+- has_many :item
+- has_many :purchase
 
-Things you may want to cover:
 
-* Ruby version
+## itemテーブル
+| Column        | Type   | Options     |
+| ------------- | ------ | ----------- |
+| item_name     | string | null: false |
+| explanation   | text   | null: false |
+| category      | string | null: false |
+| condition     | string | null: false |
+| delivery_fee  | integer | null: false |
+| area          | string | null: false |
+| days_to_ship  | string | null: false |
+| price         | integer | null: false |
+| user          | reference   | foreign_key: true |
 
-* System dependencies
+### Association
+- belongs_to :users
+- has_one :purchase
 
-* Configuration
 
-* Database creation
+## purchase
+| Column  | Type      | Options           |
+| ------- | --------- | ----------------- |
+| user    | reference | foreign_key: true |
+| item    | reference | foreign_key: true |
 
-* Database initialization
+### Association
+- belongs_to :users
+- belongs_to :item
+- has_one :address
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+## address
+| Column        | Type      | Options           |
+| ------------- | --------- | ----------------- |
+| postal_code   | string    | null: false       |
+| prefectures   | string    | null: false       |
+| district      | string    | null: false       |
+| address       | string    | null: false       |
+| building_name | string    |                   |
+| phone_number  | string    | null: false       |
+| purchase      | reference | foreign_key: true 
 
-* Deployment instructions
-
-* ...
+### Association
+- belongs_to :purchase
