@@ -7,12 +7,14 @@ class User < ApplicationRecord
   EMAIL_REGEX = /@.+/.freeze
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
 
-  validates :nickname,        presence: true
-  validates :first_name,      presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ }
-  validates :last_name,       presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ }
-  validates :first_name_kana, presence: true, format: { with: /[\p{katakana}　ー－&&[^ -~｡-ﾟ]]+/ }
-  validates :last_name_kana,  presence: true, format: { with: /[\p{katakana}　ー－&&[^ -~｡-ﾟ]]+/ }
-  validates :birthday,        presence: true
+  with_options presence: true do
+    validates :nickname
+    validates :first_name,      format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ }
+    validates :last_name,       format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ }
+    validates :first_name_kana, format: { with: /[\p{katakana}　ー－&&[^ -~｡-ﾟ]]+/ }
+    validates :last_name_kana,  format: { with: /[\p{katakana}　ー－&&[^ -~｡-ﾟ]]+/ }
+    validates :birthday
+  end
 
   validates_format_of :email, with: EMAIL_REGEX 
   validates_format_of :password, with: PASSWORD_REGEX
