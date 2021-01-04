@@ -3,9 +3,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  
+
   EMAIL_REGEX = /@.+/.freeze
-  PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
+  PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
 
   with_options presence: true do
     validates :nickname
@@ -16,6 +16,6 @@ class User < ApplicationRecord
     validates :birthday
   end
 
-  validates_format_of :email, with: EMAIL_REGEX 
+  validates_format_of :email, with: EMAIL_REGEX
   validates_format_of :password, with: PASSWORD_REGEX
 end
