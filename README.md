@@ -24,9 +24,9 @@
 | condition_id       | integer   | null: false       |
 | delivery_fee_id    | integer   | null: false       |
 | prefecture_id      | integer   | null: false       |
-| preparation_day_id | integer   | null: false       |
+| preparation_id     | integer   | null: false       |
 | price              | integer   | null: false       |
-| user               | reference | foreign_key: true |
+| user               | references | foreign_key: true |
 
 ### Association
 - belongs_to :user
