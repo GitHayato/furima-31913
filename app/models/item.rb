@@ -9,12 +9,17 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :preparation
 
-  validates :item_name, :explanation, :price, presence: true
+  with_options presence: true do
+    validates :item_name
+    validates :explanation
+    validates :price, format: { with: /\A[0-9]+\z/ } ,numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, }
+  end
 
-  validates :category_id, numericality: { other_than: 1 }
-  validates :condition_id, numericality: { other_than: 1 }
-  validates :delivery_fee_id, numericality: { other_than: 1 }
-  validates :prefecture_id, numericality: { other_than: 1 }
-  validates :preparation_id, numericality: { other_than: 1 }
-
+  with_options numericality: { other_than: 1 } do
+    validates :category_id
+    validates :condition_id
+    validates :delivery_fee_id
+    validates :prefecture_id
+    validates :preparation_id
+  end
 end
