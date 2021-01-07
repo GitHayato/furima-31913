@@ -10,57 +10,6 @@ RSpec.describe Item, type: :model do
       it '商品画像があること' do
         expect(@item).to be_valid
       end
-
-      it '商品名があること' do
-        @item.item_name = 'name'
-        
-        expect(@item).to be_valid
-      end
-
-      it '商品の説明があること' do
-        @item.explanation = 'explanation'
-        expect(@item).to be_valid
-      end
-
-      it 'カテゴリーを選択すること' do
-        @item.category_id = 3
-        expect(@item).to be_valid
-      end
-
-      it '商品の状態について選択すること' do
-        @item.condition_id = 3
-        expect(@item).to be_valid
-      end
-
-      it '配送料の負担について選択すること' do
-        @item.delivery_fee_id = 3
-        expect(@item).to be_valid
-      end
-
-      it '発送元の地域について選択すること' do
-        @item.prefecture_id = 3
-        expect(@item).to be_valid
-      end
-
-      it '発送までの日数について選択すること' do
-        @item.preparation_id = 3
-        expect(@item).to be_valid
-      end
-
-      it '価格を入力すること' do
-        @item.price = 500
-        expect(@item).to be_valid
-      end
-
-      it '価格の範囲が¥300~9,999,999の間であること' do
-        @item.price = 60000
-        expect(@item).to be_valid
-      end
-
-      it '販売価格は半角数字であること' do
-        @item.price = 123456
-        expect(@item).to be_valid
-      end
     end
 
     context '商品出品できないとき' do
