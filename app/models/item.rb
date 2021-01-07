@@ -10,6 +10,7 @@ class Item < ApplicationRecord
   belongs_to :preparation
 
   with_options presence: true do
+    validates :image
     validates :item_name
     validates :explanation
     validates :price, format: { with: /\A[0-9]+\z/ } ,numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, }
