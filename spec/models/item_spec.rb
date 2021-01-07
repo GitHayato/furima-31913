@@ -7,7 +7,7 @@ RSpec.describe Item, type: :model do
 
   describe '商品出品' do
     context '商品出品ができるとき' do
-      it '商品画像があること' do
+      it '内容に問題ない場合' do
         expect(@item).to be_valid
       end
     end
