@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   
   root to: "items#index" 
 
-  resources :items, except: :index
-  resources :purchases, only: :index
+  resources :items, except: :index do
+    resources :purchases, only: :index
+  end
 end
