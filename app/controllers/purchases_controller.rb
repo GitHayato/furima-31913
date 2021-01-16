@@ -5,9 +5,9 @@ class PurchasesController < ApplicationController
   end
 
   def create
-    @address = Address.create(address_params)
-    if @address.valid?
-      @address.save
+    @purchase_form = PurchaseForm.new(purchase_params)
+    if @purchase_form.valid?
+      @purchase_form.save
       redirect_to root_path
     else
       render :index
@@ -17,8 +17,8 @@ class PurchasesController < ApplicationController
 
   private
 
-  def address_params
-    params.permit(:postal_code, :prefecture_id, :district, :address, :building_name, :phone_number)
+  def purchase_params
+    params.permit(:postal_code, :prefecture_id, :district, :address, :building_name, :phone_number, :item_id)
   end
   
   def common_content
