@@ -40,6 +40,11 @@ RSpec.describe PurchaseForm, type: :model do
       expect(@purchase_form.errors.full_messages).to include("Address can't be blank")
     end
 
+    it '建物名は空でも購入できること' do
+      @purchase_form.building_name = ''
+      expect(@purchase_form).to be_valid
+    end
+
     it '電話番号が空だと購入できない' do
       @purchase_form.phone_number = ''
       @purchase_form.valid?
