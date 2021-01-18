@@ -7,8 +7,9 @@ class PurchaseForm
     validates :district
     validates :address
     validates :phone_number, length: { is: 11 }, numericality: true
-    validates :prefecture_id
   end
+
+  validates :prefecture_id, numericality: { other_than: 1}
 
   
   def save
