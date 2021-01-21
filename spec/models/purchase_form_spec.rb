@@ -62,5 +62,11 @@ RSpec.describe PurchaseForm, type: :model do
       @purchase_form.valid?
       expect(@purchase_form.errors.full_messages).to include("Phone number is the wrong length (should be 11 characters)")
     end
+
+    it 'tokenがなければ購入できない' do
+      @purchase_form.token = ''
+      @purchase_form.valid?
+      expect(@purchase_form.errors.full_messages).to include("Token can't be blank")
+    end
   end
 end
