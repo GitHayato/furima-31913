@@ -8,8 +8,9 @@ class PurchasesController < ApplicationController
   def create
     @purchase_form = PurchaseForm.new(purchase_params)
     if @purchase_form.valid?
+      pay_item
       @purchase_form.save
-      redirect_to root_path
+      redirect_to root_path 
     else
       render :index
     end
@@ -19,11 +20,20 @@ class PurchasesController < ApplicationController
   private
 
   def purchase_params
-    params.require(:purchase_form).permit(:postal_code, :prefecture_id, :district, :address, :building_name, :phone_number, :item_id).merge(user_id: current_user.id, item_id: @item.id)
+    params.require(:purchase_form).permit(:postal_code, :prefecture_id, :district, :address, :building_name, :phone_number, :item_id).merge(user_id: current_user.id, item_id: @item.id, token: params[:token])
   end
   
   def common_content
     @item = Item.find(params[:item_id])
+  end
+
+  def pay_item
+    Payjp.api_key = "sk_test_46ffecb6df4cfd75a4d8e670"
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: purchase_params[:token],
+      currency: 'jpy'
+    )
   end
 
 end

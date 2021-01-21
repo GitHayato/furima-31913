@@ -1,12 +1,13 @@
 class PurchaseForm
   include ActiveModel::Model
-  attr_accessor :postal_code, :prefecture_id, :district, :address, :building_name, :phone_number, :item_id, :user_id
+  attr_accessor :postal_code, :prefecture_id, :district, :address, :building_name, :phone_number, :item_id, :user_id, :token
 
   with_options presence: true do
     validates :postal_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/}
     validates :district
     validates :address
     validates :phone_number, length: { is: 11 }, numericality: true
+    validates :token
   end
 
   validates :prefecture_id, numericality: { other_than: 1}

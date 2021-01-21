@@ -67,3 +67,5 @@ gem 'mini_magick'
 gem 'image_processing'
 
 gem 'active_hash'
+
+gem 'payjp'
