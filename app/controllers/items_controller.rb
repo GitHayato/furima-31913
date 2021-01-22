@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :common_content, only: [:show, :update, :edit, :destroy]
+  before_action :purchase_item, only: [:show, :edit]
 
 
   def index
@@ -21,11 +22,10 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @purchase = Purchase.find_by(item_id: @item.id)
   end
 
   def edit
-    if current_user.id != @item.user_id
+    if current_user.id != @item.user_id or @purchase
       redirect_to root_path
     end
   end
@@ -56,4 +56,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def purchase_item
+    @purchase = Purchase.find_by(item_id: @item.id)
+  end
 end

@@ -54,13 +54,13 @@ RSpec.describe PurchaseForm, type: :model do
     it '電話番号にハイフンがあれば購入できない' do
       @purchase_form.phone_number = '020-1234-5678'
       @purchase_form.valid?
-      expect(@purchase_form.errors.full_messages).to include("Phone number is the wrong length (should be 11 characters)")
+      expect(@purchase_form.errors.full_messages).to include("Phone number is too long (maximum is 11 characters)")
     end
-
-    it '電話番号は11桁でないと購入できない' do
-      @purchase_form.phone_number = '020123456'
+    
+    it '電話番号は11桁以下でないと購入できない' do
+      @purchase_form.phone_number = '020123456789'
       @purchase_form.valid?
-      expect(@purchase_form.errors.full_messages).to include("Phone number is the wrong length (should be 11 characters)")
+      expect(@purchase_form.errors.full_messages).to include("Phone number is too long (maximum is 11 characters)")
     end
 
     it 'tokenがなければ購入できない' do
