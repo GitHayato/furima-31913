@@ -1,8 +1,14 @@
 class PurchasesController < ApplicationController
+  before_action :authenticate_user!, only: :index
   before_action :common_content, only: [:index, :create]
 
   def index
-    @purchase_form = PurchaseForm.new
+    purchase = Purchase.find_by(item_id: @item.id)
+    if @item.user_id == current_user.id or purchase 
+      redirect_to root_path
+    else
+      @purchase_form = PurchaseForm.new
+    end
   end
 
   def create
