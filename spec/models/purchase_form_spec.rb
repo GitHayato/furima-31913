@@ -3,13 +3,22 @@ require 'rails_helper'
 RSpec.describe PurchaseForm, type: :model do
   describe '商品購入' do
     before do
-      @purchase_form = FactoryBot.build(:purchase_form)
+      user = FactoryBot.create(:user)
+      item = FactoryBot.build(:item)
+      sleep 0.3
+      item.save
+      @purchase_form = FactoryBot.build(:purchase_form, user_id: user.id, item_id: item.id)
     end
-
+    
     it '商品購入ができること' do
       expect(@purchase_form).to be_valid
     end
-
+    
+    it '建物名は空でも購入できること' do
+      @purchase_form.building_name = ''
+      expect(@purchase_form).to be_valid
+    end
+    
     it '郵便番号が空だと購入できない' do
       @purchase_form.postal_code = ''
       @purchase_form.valid?
@@ -38,11 +47,6 @@ RSpec.describe PurchaseForm, type: :model do
       @purchase_form.address = ''
       @purchase_form.valid?
       expect(@purchase_form.errors.full_messages).to include("Address can't be blank")
-    end
-
-    it '建物名は空でも購入できること' do
-      @purchase_form.building_name = ''
-      expect(@purchase_form).to be_valid
     end
 
     it '電話番号が空だと購入できない' do
