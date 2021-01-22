@@ -11,8 +11,8 @@ class User < ApplicationRecord
     validates :nickname
     validates :first_name,      format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ }
     validates :last_name,       format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ }
-    validates :first_name_kana, format: { with: /[\p{katakana}　ー－&&[^ -~｡-ﾟ]]+/ }
-    validates :last_name_kana,  format: { with: /[\p{katakana}　ー－&&[^ -~｡-ﾟ]]+/ }
+    validates :first_name_kana, format: { with: /[\p{katakana} ー－&&[^ -~｡-ﾟ]]+/ }
+    validates :last_name_kana,  format: { with: /[\p{katakana} ー－&&[^ -~｡-ﾟ]]+/ }
     validates :birthday
   end
 
@@ -21,4 +21,5 @@ class User < ApplicationRecord
 
 
   has_many :items
+  has_many :purchases
 end
