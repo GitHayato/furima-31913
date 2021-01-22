@@ -70,6 +70,12 @@ RSpec.describe PurchaseForm, type: :model do
         expect(@purchase_form.errors.full_messages).to include("Phone number is too long (maximum is 11 characters)")
       end
 
+      it '電話番号が全角数字だと購入できない' do
+        @purchase_form.phone_number = '０１２０１２３４５６'
+        @purchase_form.valid?
+        expect(@purchase_form.errors.full_messages).to include("Phone number is not a number")
+      end
+
       it 'tokenがなければ購入できない' do
         @purchase_form.token = ''
         @purchase_form.valid?
